@@ -10,4 +10,8 @@
     <PackageReference Include="FluentValidation" Version="8.6.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Inventory.DAL\Inventory.DAL.csproj" />
+  </ItemGroup>
+
 </Project>

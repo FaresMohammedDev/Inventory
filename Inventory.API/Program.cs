@@ -1,3 +1,8 @@
+using Inventory.DAL.Data;
+using Inventory.DAL.Repositories.Implementation;
+using Inventory.DAL.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,6 +11,15 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+var connection = builder.Configuration.GetConnectionString("Default");
+builder.Services.AddDbContext<ApplicationDbContext>(x => x.UseSqlServer(connection));
+
+builder.Services.AddScoped(typeof(IGenericRepo<>), typeof(GenericRepo<>));
+builder.Services.AddScoped<IProductRepo, ProductRepo>();
+builder.Services.AddScoped<IOrderRepo, OrderRepo>();
+builder.Services.AddScoped<IOrderItemRepo, OrderItemRepo>();
+
 
 var app = builder.Build();
 

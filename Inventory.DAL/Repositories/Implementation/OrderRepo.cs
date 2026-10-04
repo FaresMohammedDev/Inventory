@@ -1,0 +1,22 @@
+﻿using Inventory.DAL.Data;
+using Inventory.DAL.Models;
+using Inventory.DAL.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Inventory.DAL.Repositories.Implementation
+{
+    public class OrderRepo : GenericRepo<Order>, IOrderRepo
+    {
+        public OrderRepo(ApplicationDbContext context, DbSet<Order> dbSet) : base(context, dbSet)
+        {
+
+        }
+
+
+    }
+}
