@@ -12,7 +12,7 @@ namespace Inventory.DAL.Repositories.Implementation
 {
     public class ProductRepo : GenericRepo<Product>, IProductRepo
     {
-        public ProductRepo(ApplicationDbContext context, DbSet<Product> dbSet) : base(context, dbSet)
+        public ProductRepo(ApplicationDbContext context) : base(context)
         {
 
         }

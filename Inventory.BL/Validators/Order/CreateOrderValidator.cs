@@ -14,10 +14,6 @@ namespace Inventory.BL.Validators.Order
         {
             RuleFor(x => x.OrderDate)
                 .NotEmpty().WithMessage("Order Date is requird");
-
-            RuleFor(x => x.TotalPrice)
-                .NotEmpty().WithMessage("Total Price is requird")
-                .GreaterThanOrEqualTo(0).WithMessage("Total price must greater than 0");
         }
     }
 }

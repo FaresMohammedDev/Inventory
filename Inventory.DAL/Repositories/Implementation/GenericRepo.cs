@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,10 +14,10 @@ namespace Inventory.DAL.Repositories.Implementation
     {
         private readonly ApplicationDbContext _context;
         private readonly DbSet<T> _dbSet;
-        public GenericRepo(ApplicationDbContext context, DbSet<T> dbSet)
+        public GenericRepo(ApplicationDbContext context)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
-            _dbSet = dbSet ?? throw new ArgumentNullException(nameof(dbSet));
+            _dbSet = _context.Set<T>();
         }
         public async Task CreateAsync(T entity)
         {
@@ -27,6 +28,11 @@ namespace Inventory.DAL.Repositories.Implementation
         {
             _dbSet.Remove(entity);
             return Task.CompletedTask;
+        }
+
+        public async Task<IEnumerable<T>> FindAsync(Expression<Func<T, bool>> predicate)
+        {
+            return await _dbSet.Where(predicate).ToListAsync();
         }
 
         public Task<List<T>> GetAllAsync()
