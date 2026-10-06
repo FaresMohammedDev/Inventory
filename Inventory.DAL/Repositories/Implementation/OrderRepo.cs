@@ -12,7 +12,7 @@ namespace Inventory.DAL.Repositories.Implementation
 {
     public class OrderRepo : GenericRepo<Order>, IOrderRepo
     {
-        public OrderRepo(ApplicationDbContext context, DbSet<Order> dbSet) : base(context, dbSet)
+        public OrderRepo(ApplicationDbContext context) : base(context)
         {
 
         }

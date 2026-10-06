@@ -11,7 +11,7 @@ namespace Inventory.BL.Common
         public T? Data { get; set; }
         public bool IsSuccess { get; set; }
         public string Message { get; set; } = string.Empty;
-        
+
         public static ServiceResponse<T> Success(T data, string message = "")
         {
             return new ServiceResponse<T>
@@ -32,4 +32,5 @@ namespace Inventory.BL.Common
             };
         }
     }
+
 }

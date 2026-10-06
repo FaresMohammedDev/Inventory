@@ -9,6 +9,5 @@ namespace Inventory.BL.DTOs.Order
     public record UpdateOrderDto
     {
         public DateTime OrderDate { get; set; }
-        public int TotalPrice { get; set; }
     }
 }

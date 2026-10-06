@@ -12,10 +12,6 @@ namespace Inventory.BL.Validators.OrderItem
     {
         public UpdateOrderItemValidator()
         {
-            RuleFor(x => x.UnitPrice)
-                .NotEmpty().WithMessage("Price is requird")
-                .GreaterThanOrEqualTo(0).WithMessage("Price must greater than 0");
-
             RuleFor(x => x.Quantity)
                 .NotEmpty().WithMessage("Quantity is requird")
                 .GreaterThanOrEqualTo(-1).WithMessage("Quantity mustn't be negative number");
