@@ -1,5 +1,6 @@
 ﻿using Inventory.BL.DTOs.OrderItem;
 using Inventory.BL.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,6 +18,7 @@ namespace Inventory.API.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> GetAll()
         {
             var response = await _orderItemService.GetAllAsync();
@@ -24,6 +26,7 @@ namespace Inventory.API.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<IActionResult> GetById(int id)
         {
             var response = await _orderItemService.GetByIdAsync(id);
@@ -31,6 +34,7 @@ namespace Inventory.API.Controllers
         }
 
         [HttpGet("order/{orderId}")]
+        [Authorize]
         public async Task<IActionResult> GetByOrderId(int orderId)
         {
             var response = await _orderItemService.GetItemsByOrderIdAsync(orderId);
@@ -38,6 +42,7 @@ namespace Inventory.API.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> AddItemToOrder([FromBody] CreateOrderItemDto dto)
         {
             var response = await _orderItemService.AddItemToOrderAsync(dto);
@@ -45,6 +50,7 @@ namespace Inventory.API.Controllers
         }
 
         [HttpPut("{id}/quantity")]
+        [Authorize]
         public async Task<IActionResult> UpdateQuantity(int id, [FromBody] UpdateOrderItemDto dto)
         {
             var response = await _orderItemService.UpdateItemQuantityAsync(id, dto);
@@ -52,6 +58,7 @@ namespace Inventory.API.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> RemoveItem(int id)
         {
             var response = await _orderItemService.RemoveItemFromOrderAsync(id);

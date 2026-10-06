@@ -11,6 +11,6 @@ namespace Inventory.BL.Services.Interfaces
     public interface IAccountService
     {
         Task<ServiceResponse<string>> RegisterAsync(RegisterDto dto);
-        Task<ServiceResponse<string>> LoginAsync(LoginDto dto);
+        Task<ServiceResponse<AuthResponseDto>> LoginAsync(LoginDto dto);
     }
 }

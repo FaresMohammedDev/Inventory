@@ -10,6 +10,6 @@ namespace Inventory.BL.DTOs.Order
     public class PlaceOrderRequest
     {
         public CreateOrderDto Order { get; set; } = null!;
-        public List<CreateOrderItemDto> Items { get; set; } = new();
+        public List<OrderItemRequestDto> Items { get; set; } = new();
     }
 }

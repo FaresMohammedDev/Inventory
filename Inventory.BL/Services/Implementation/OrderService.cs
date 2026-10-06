@@ -34,7 +34,7 @@ namespace Inventory.BL.Services.Implementation
             {
                 Id = o.Id,
                 OrderDate = o.OrderDate,
-                TotalPrice = (int)o.TotalPrice,
+                TotalPrice = o.TotalPrice,
                 UserName = o.User != null ? o.User.FullName : "Unknown"
             }).ToList();
 
@@ -51,7 +51,7 @@ namespace Inventory.BL.Services.Implementation
             {
                 Id = order.Id,
                 OrderDate = order.OrderDate,
-                TotalPrice = (int)order.TotalPrice,
+                TotalPrice = order.TotalPrice,
                 UserName = order.User != null ? order.User.FullName : "Unknown"
             };
 
@@ -67,14 +67,14 @@ namespace Inventory.BL.Services.Implementation
                 {
                     Id = o.Id,
                     OrderDate = o.OrderDate,
-                    TotalPrice = (int)o.TotalPrice,
+                    TotalPrice = o.TotalPrice,
                     UserName = o.User != null ? o.User.FullName : "Unknown"
                 }).ToList();
 
             return ServiceResponse<IEnumerable<GetOrderDto>>.Success(userOrders);
         }
 
-        public async Task<ServiceResponse<string>> CreateOrderAsync(CreateOrderDto orderDto, List<CreateOrderItemDto> itemsDto)
+        public async Task<ServiceResponse<int>> CreateOrderAsync(CreateOrderDto orderDto, List<OrderItemRequestDto> itemsDto)
         {
             await _unitOfWork.BeginTransactionAsync();
             try
@@ -84,10 +84,10 @@ namespace Inventory.BL.Services.Implementation
                 {
                     var product = await _productRepo.GetByIdAsync(item.ProductId);
                     if (product == null)
-                        return ServiceResponse<string>.Fail($"Product ID {item.ProductId} not found.");
+                        return ServiceResponse<int>.Fail($"Product ID {item.ProductId} not found.");
 
                     if (product.StockQuantity < item.Quantity)
-                        return ServiceResponse<string>.Fail($"Not enough stock for {product.Name}. Available: {product.StockQuantity}");
+                        return ServiceResponse<int>.Fail($"Not enough stock for {product.Name}. Available: {product.StockQuantity}");
 
                     calculatedTotalPrice += product.Price * item.Quantity;
                 }
@@ -120,12 +120,12 @@ namespace Inventory.BL.Services.Implementation
                 }
 
                 await _unitOfWork.CommitAsync();
-                return ServiceResponse<string>.Success(string.Empty, "Order created successfully and stock deducted.");
+                return ServiceResponse<int>.Success(newOrder.Id, "Order created successfully and stock deducted.");
             }
             catch (Exception ex)
             {
                 await _unitOfWork.RollbackAsync();
-                return ServiceResponse<string>.Fail($"Order creation failed: {ex.Message}");
+                return ServiceResponse<int>.Fail($"Order creation failed: {ex.Message}");
             }
         }
 

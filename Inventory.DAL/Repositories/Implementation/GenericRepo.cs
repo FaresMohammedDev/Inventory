@@ -45,10 +45,9 @@ namespace Inventory.DAL.Repositories.Implementation
             return await _dbSet.FindAsync(id);
         }
 
-        public Task SaveChangesAsync()
+        public async Task SaveChangesAsync()
         {
-            _context.SaveChangesAsync();
-            return Task.CompletedTask;
+            await _context.SaveChangesAsync();
         }
 
         public Task UpdateAsync(T entity)

@@ -1,5 +1,6 @@
 ﻿using Inventory.BL.DTOs.Order;
 using Inventory.BL.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,6 +18,7 @@ namespace Inventory.API.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> GetAll()
         {
             var response = await _orderService.GetAllOrdersAsync();
@@ -24,6 +26,7 @@ namespace Inventory.API.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<IActionResult> GetById(int id)
         {
             var response = await _orderService.GetOrderByIdAsync(id);
@@ -31,6 +34,7 @@ namespace Inventory.API.Controllers
         }
 
         [HttpGet("user/{userId}")]
+        [Authorize]
         public async Task<IActionResult> GetByUserId(int userId)
         {
             var response = await _orderService.GetOrdersByUserIdAsync(userId);
@@ -38,6 +42,7 @@ namespace Inventory.API.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> CreateOrder([FromBody] PlaceOrderRequest request)
         {
             var response = await _orderService.CreateOrderAsync(request.Order, request.Items);
@@ -45,6 +50,7 @@ namespace Inventory.API.Controllers
         }
 
         [HttpDelete("{id}/cancel")]
+        [Authorize]
         public async Task<IActionResult> CancelOrder(int id)
         {
             var response = await _orderService.CancelOrderAsync(id);

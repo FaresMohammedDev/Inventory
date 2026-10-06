@@ -1,5 +1,6 @@
 ﻿using Inventory.BL.DTOs.Product;
 using Inventory.BL.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,6 +18,7 @@ namespace Inventory.API.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> GetAll()
         {
             var response = await _productService.GetAllProductsAsync();
@@ -24,6 +26,7 @@ namespace Inventory.API.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<IActionResult> GetById(int id)
         {
             var response = await _productService.GetProductByIdAsync(id);
@@ -31,6 +34,7 @@ namespace Inventory.API.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Create([FromBody] CreateProductDto dto)
         {
             var response = await _productService.CreateProductAsync(dto);
@@ -38,6 +42,7 @@ namespace Inventory.API.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> Update(int id, [FromBody] UpdateProductDto dto)
         {
             var response = await _productService.UpdateProductAsync(id, dto);
@@ -45,6 +50,7 @@ namespace Inventory.API.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> Delete(int id)
         {
             var response = await _productService.DeleteProductAsync(id);

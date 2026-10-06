@@ -12,6 +12,6 @@ namespace Inventory.BL.DTOs.Order
         public int Id { get; set; }
         public string UserName { get; set; } = string.Empty;
         public DateTime OrderDate { get; set; }
-        public int TotalPrice { get; set; }
+        public decimal TotalPrice { get; set; }
     }
 }

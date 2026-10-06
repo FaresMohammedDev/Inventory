@@ -14,7 +14,8 @@ namespace Inventory.BL.Services.Interfaces
         Task<ServiceResponse<IEnumerable<GetOrderDto>>> GetAllOrdersAsync();
         Task<ServiceResponse<GetOrderDto>> GetOrderByIdAsync(int id);
         Task<ServiceResponse<IEnumerable<GetOrderDto>>> GetOrdersByUserIdAsync(int userId);
-        Task<ServiceResponse<string>> CreateOrderAsync(CreateOrderDto orderDto, List<CreateOrderItemDto> itemsDto);
+        Task<ServiceResponse<int>> CreateOrderAsync(CreateOrderDto orderDto, List<OrderItemRequestDto> itemsDto);
         Task<ServiceResponse<string>> CancelOrderAsync(int orderId);
     }
 }
+    
